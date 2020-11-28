@@ -1,3 +1,4 @@
+
 <p id="notice"><%= notice %></p>
 
 <p>
@@ -9,16 +10,20 @@
   <strong>Number of pages:</strong>
   <%= @book.number_of_pages %>
 </p>
+
 <p>
   <strong>Detail:</strong>
   <%= @book.detail %>
 </p>
+
+
 <p>
-   <% if @book.image.attached? %>
-     <%= image_tag @book.image %>
-   <% end %>
- </p>
- <h2>Review From</h2>
+  <% if @book.image.attached? %>
+    <%= image_tag @book.image %>
+  <% end %>
+</p>
+
+<h2>Review From</h2>
 <%= form_with(model: @book_review, local: true) do |form| %>
   <div class= "field">
     <%= form.text_area :review %>
@@ -28,5 +33,14 @@
     <%= form.submit %>
   </div>
 <% end %>
+
+<h2>Review List</h2>
+<ul>
+  <% @book.book_review.each do |book_review|%>
+   <li><%= book_review.review %>
+     (<i><%= book_review.user_id %></i>)</li>
+<% end %>
+</ul>
+
 <%= link_to 'Edit', edit_book_path(@book) %> |
 <%= link_to 'Back', books_path %>
